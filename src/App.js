@@ -7,7 +7,7 @@ import Time from "./components/Time/Time";
 function App() {
   const times = [
     {
-      nome: "Programação",
+      nome: "Back-End",
       corPrimaria: "#57C278",
       corSecundaria: "#D9F7E9",
     },
