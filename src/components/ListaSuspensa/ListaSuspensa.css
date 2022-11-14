@@ -1,0 +1,15 @@
+.lista-suspensa label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 24px;
+}
+
+.lista-suspensa select {
+    background-color: #FFF;
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.8); /*Sombra*/
+    width: 100%;
+    border: none;
+    font-size: 24px;
+    padding: 24px;
+    box-sizing: border-box;
+}
