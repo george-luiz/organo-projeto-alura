@@ -3,47 +3,73 @@ import Banner from "./components/Banner/Banner";
 import Formulario from "./components/Formulario/Formulario";
 import Rodape from "./components/Footer/Footer";
 import Time from "./components/Time/Time";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
-  const times = [
+  const [times, setTimes] = useState([
     {
+      id: uuidv4(),
       nome: "Back-End",
-      corPrimaria: "#57C278",
-      corSecundaria: "#D9F7E9",
+      cor: "#57C278",
     },
     {
+      id: uuidv4(),
       nome: "Front-End",
-      corPrimaria: "#82CFFA",
-      corSecundaria: "#E8F8FF",
+      cor: "#82CFFA",
     },
     {
+      id: uuidv4(),
       nome: "Data Sciense",
-      corPrimaria: "#A6D157",
-      corSecundaria: "#F0F8E2",
+      cor: "#A6D157",
     },
     {
+      id: uuidv4(),
       nome: "Devops",
-      corPrimaria: "#E06B69",
-      corSecundaria: "#FDE7E8",
+      cor: "#E06B69",
     },
     {
+      id: uuidv4(),
       nome: "UX e Design",
-      corPrimaria: "#D86EBF",
-      corSecundaria: "#FAE95F5",
+      cor: "#D86EBF",
     },
     {
+      id: uuidv4(),
       nome: "Mobile",
-      corPrimaria: "#FEBA05",
-      corSecundaria: "#FFF5D9",
+      cor: "#FEBA05",
     },
     {
+      id: uuidv4(),
       nome: "Inovação e Gestão",
-      corPrimaria: "#FF8A29",
-      corSecundaria: "#FFEEDF",
+      cor: "#FF8A29",
     },
-  ];
+  ]);
 
-  const [colaboradores, setColaboradores] = useState([]);
+  const inicial = [
+    {
+      id: uuidv4(),
+      nome: "George Luiz",
+      cargo: "Desenvolvedor Front-End e mobile",
+      imagem: "george-luiz",
+      time: times[1].nome
+    }
+  ]
+
+  const [colaboradores, setColaboradores] = useState(inicial);
+
+  function deletarColaborador(id) {
+    setColaboradores(colaboradores.filter(colaborador => colaborador.id !== id));
+  }
+
+  function mudarCorDoTime(cor, id) {
+    setTimes(
+      times.map((time) => {
+        if (time.id === id) {
+          time.cor = cor;
+        }
+        return time;
+      })
+    );
+  }
 
   const aoNovoColaboradorAdicionado = (colaborador) => {
     setColaboradores([...colaboradores, colaborador]);
@@ -63,13 +89,15 @@ function App() {
       {times.map((time) => {
         return (
           <Time
+            mudarCor={mudarCorDoTime}
             key={time.nome}
             nome={time.nome}
-            corPrimaria={time.corPrimaria}
-            corSecundaria={time.corSecundaria}
+            cor={time.cor}
+            id={time.id}
             colaboradores={colaboradores.filter((colaborador) => {
               return colaborador.time === time.nome;
             })}
+            aoDeletar={deletarColaborador}
           />
         );
       })}
