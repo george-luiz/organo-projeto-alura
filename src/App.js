@@ -47,17 +47,20 @@ function App() {
   const inicial = [
     {
       id: uuidv4(),
+      favorito: "false",
       nome: "George Luiz",
       cargo: "Desenvolvedor Front-End e mobile",
       imagem: "george-luiz",
-      time: times[1].nome
-    }
-  ]
+      time: times[1].nome,
+    },
+  ];
 
   const [colaboradores, setColaboradores] = useState(inicial);
 
   function deletarColaborador(id) {
-    setColaboradores(colaboradores.filter(colaborador => colaborador.id !== id));
+    setColaboradores(
+      colaboradores.filter((colaborador) => colaborador.id !== id)
+    );
   }
 
   function mudarCorDoTime(cor, id) {
@@ -75,10 +78,24 @@ function App() {
     setColaboradores([...colaboradores, colaborador]);
   };
 
+  function cadastrarTime(novoTime) {
+    setTimes([...times, { ...novoTime, id: uuidv4() }]);
+  }
+
+  function resolverFavorito(id) {
+    setColaboradores(colaboradores.map((colaborador) => {
+      if(colaborador.id === id){
+         colaborador.favorito = !colaborador.favorito;
+         return colaborador;
+      }
+    }));
+  }
+
   return (
     <div>
       <Banner />
       <Formulario
+        cadastrarTime={cadastrarTime}
         times={times.map((time) => {
           return time.nome;
         })}
@@ -86,21 +103,25 @@ function App() {
           aoNovoColaboradorAdicionado(colaborador)
         }
       />
-      {times.map((time) => {
-        return (
-          <Time
-            mudarCor={mudarCorDoTime}
-            key={time.nome}
-            nome={time.nome}
-            cor={time.cor}
-            id={time.id}
-            colaboradores={colaboradores.filter((colaborador) => {
-              return colaborador.time === time.nome;
-            })}
-            aoDeletar={deletarColaborador}
-          />
-        );
-      })}
+      <section className="times">
+        <h1 style={{textAlign: "center", fontWeight: "bold", fontSize: "35px"}}>Minha organização</h1>
+        {times.map((time) => {
+          return (
+            <Time
+              aoFavoritar={resolverFavorito}
+              mudarCor={mudarCorDoTime}
+              key={time.nome}
+              nome={time.nome}
+              cor={time.cor}
+              id={time.id}
+              colaboradores={colaboradores.filter((colaborador) => {
+                return colaborador.time === time.nome;
+              })}
+              aoDeletar={deletarColaborador}
+            />
+          );
+        })}
+      </section>
       <Rodape />
     </div>
   );

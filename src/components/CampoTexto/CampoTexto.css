@@ -17,3 +17,8 @@
     padding: 24px;
     box-sizing: border-box;  /*mantém o valores padding e margin dentro do escopo*/
 }
+
+.campo-texto-color input {
+    height: 40px;
+    padding: 5px 24px;
+}

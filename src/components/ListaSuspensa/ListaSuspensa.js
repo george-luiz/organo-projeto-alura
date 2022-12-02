@@ -11,6 +11,7 @@ const ListaSuspensa = (props) => {
                     props.aoAlterado(event.target.value)
                 }}
             >
+                <option value=""></option>
                 {
                     props.itens.map((item) => {
                         return <option key={item}>
